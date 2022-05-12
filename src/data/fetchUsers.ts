@@ -1,12 +1,16 @@
 import axios from "axios";
+import { AuthResolver } from "../resolvers/AuthResolver";
 require("dotenv").config();
+
+const authResolver = new AuthResolver();
+const token = authResolver.getToken();
 
 export const fetchUsers = async () => {
   const response = await axios.get(
     `${process.env.HOST}/api/v1/user-community/users`,
     {
       headers: {
-        Authorization: "Bearer " + process.env.LOGGED_USER_TOKEN,
+        Authorization: "Bearer " + (token || process.env.LOGGED_USER_TOKEN),
         "X-Requested-With": "XMLHttpRequest",
       },
     }
@@ -20,7 +24,7 @@ export const fetchSingleUser = async (username: string) => {
     `${process.env.HOST}/api/v1/user-profile/${username}`,
     {
       headers: {
-        Authorization: "Bearer " + process.env.LOGGED_USER_TOKEN,
+        Authorization: "Bearer " + (token || process.env.LOGGED_USER_TOKEN),
         "X-Requested-With": "XMLHttpRequest",
       },
     }
