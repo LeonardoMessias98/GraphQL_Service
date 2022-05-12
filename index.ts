@@ -4,10 +4,11 @@ import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 
 import { UserResolver } from "./src/resolvers/UserResolver";
+import { AuthResolver } from "./src/resolvers/AuthResolver";
 
 async function main() {
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [AuthResolver, UserResolver],
     emitSchemaFile: path.resolve(__dirname, "schema.sql"),
   });
 

@@ -4,6 +4,7 @@
 # -----------------------------------------------
 
 type Query {
+  setToken(token: String!): String!
   singleUser(username: String!): User!
   users: [User!]!
 }
